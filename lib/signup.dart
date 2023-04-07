@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:http/http.dart';
 class Login_screen extends StatefulWidget {
   const Login_screen({Key? key}) : super(key: key);
 
@@ -8,6 +8,35 @@ class Login_screen extends StatefulWidget {
 }
 
 class _Login_screenState extends State<Login_screen> {
+  TextEditingController emailController=TextEditingController();
+  TextEditingController passwardController=TextEditingController();
+
+ void login(String email,password) async{
+
+   try{
+
+     Response response=await post(
+       Uri.parse('https://reqres.in/api/register'),
+       body:{
+         'email': email,
+         'password': password,
+
+       }
+     );
+     if(response.statusCode==200){
+       print('Your account created succesfully');
+     }else{
+       print('Failed to create your account');
+     }
+
+   }catch(e){
+
+     print(e.toString());
+   }
+
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,94 +81,106 @@ class _Login_screenState extends State<Login_screen> {
                         topLeft: Radius.circular(50),
                         topRight: Radius.circular(50)),
                   ),
-                  child: Expanded(
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(30),
-                          child: Row(
-                            children: [
-                              const Text(
-                                'New\nAccount',
-                                style: TextStyle(
-                                    fontSize: 25, fontWeight: FontWeight.bold),
-                              ),
-                              Spacer(),
-                              Column(
-                                children: [Container(
-                                  height: 60,
-                                    width: 60,
-                                  child: Icon(Icons.camera_alt_outlined),
-                                  decoration: BoxDecoration(
-                                    shape:BoxShape.circle,
-                                    border: Border.all(color: Colors.black38,width: 3)
-                                  ),
+                  child: SingleChildScrollView(
+                    child: Expanded(
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(30),
+                            child: Row(
+                              children: [
+                                const Text(
+                                  'New\nAccount',
+                                  style: TextStyle(
+                                      fontSize: 25, fontWeight: FontWeight.bold),
                                 ),
-                                  SizedBox(height: 10,),
-                                  Text('Upload Picture',),
-                                ],
-                              )
-                            ],
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 20,right: 20),
-                          child: TextFormField(
-                            decoration: const InputDecoration(
-                              hintText: 'Enter Your Email',
-                              fillColor: Color(0xffF8F9FA),
-
-                              prefixIcon: Icon(Icons.email_outlined,color: Color(0xff323F4B),),
+                                Spacer(),
+                                Column(
+                                  children: [Container(
+                                    height: 60,
+                                      width: 60,
+                                    child: Icon(Icons.camera_alt_outlined),
+                                    decoration: BoxDecoration(
+                                      shape:BoxShape.circle,
+                                      border: Border.all(color: Colors.black38,width: 3)
+                                    ),
+                                  ),
+                                    SizedBox(height: 10,),
+                                    Text('Upload Picture',),
+                                  ],
+                                )
+                              ],
                             ),
                           ),
-                        ),
-                        SizedBox(height: 20,),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 20,right: 20),
-                          child: TextFormField(
-                            decoration: const InputDecoration(
-                              hintText: 'Enter Username',
-                              fillColor: Color(0xffF8F9FA),
-
-                              prefixIcon: Icon(Icons.add_alert,color: Color(0xff323F4B),),
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: 20,),
-                        SingleChildScrollView(
-                          child: Padding(
+                          Padding(
                             padding: const EdgeInsets.only(left: 20,right: 20),
                             child: TextFormField(
-                              keyboardType:TextInputType.number,
+                              controller: emailController,
                               decoration: const InputDecoration(
-                                hintText: 'Enter Your Passward',
+                                hintText: 'Enter Your Email',
                                 fillColor: Color(0xffF8F9FA),
-                                suffixIcon: Icon(Icons.visibility),
-                                prefixIcon: Icon(Icons.key_rounded,color: Color(0xff323F4B),),
+
+                                  prefixIcon: Icon(Icons.email_outlined,color: Color(0xff323F4B),),
+                                ),
                               ),
                             ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 30, right: 30),
-                          child: Container(
-                            margin: EdgeInsets.only(top: 50),
-                            height: 60,
-                            width: 400,
-                            child: const Center(
-                                child: Text(
-                                  "SignUp",
-                                  style: TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white),
-                                )),
-                            decoration: BoxDecoration(
-                                color: Colors.deepOrange,
-                                borderRadius: BorderRadius.circular(20)),
-                          ),
-                        ),
-                      ],
+                            // SizedBox(height: 20,),
+                            // Padding(
+                            //   padding: const EdgeInsets.only(left: 20,right: 20),
+                            //   child: TextFormField(
+                            //     decoration: const InputDecoration(
+                            //       hintText: 'Enter Username',
+                            //       fillColor: Color(0xffF8F9FA),
+                            //
+                            //       prefixIcon: Icon(Icons.add_alert,color: Color(0xff323F4B),),
+                            //     ),
+                            //   ),
+                            // ),
+                            SizedBox(height: 20,),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 20,right: 20),
+                              child: TextFormField(
+                                controller: passwardController,
+
+                                decoration: const InputDecoration(
+                                  hintText: 'Enter Your Passward',
+                                  fillColor: Color(0xffF8F9FA),
+                                  suffixIcon: Icon(Icons.visibility),
+                                  prefixIcon: Icon(Icons.key_rounded,color: Color(0xff323F4B),),
+                                ),
+                              ),
+                            ),
+                            Container(
+
+                              child: Padding(
+                                padding: const EdgeInsets.only(left: 30, right: 30),
+                                child: InkWell(
+                                  onTap: (){
+                                    login(emailController.text.toString(),passwardController.text.toString());
+                                  },
+                                  child: Container(
+                                    margin: EdgeInsets.only(top: 50),
+                                    height: 60,
+                                    width: 400,
+                                    decoration: BoxDecoration(
+                                        color: Colors.deepOrange,
+                                        borderRadius: BorderRadius.circular(20)),
+                                    child: const Center(
+                                        child: Text(
+                                          "SignUp",
+                                          style: TextStyle(
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white),
+                                        )),
+                                  ),
+                                ),
+                              ),
+                            ),
+
+                          
+                        ],
+                      ),
                     ),
                   ),
 
@@ -152,13 +193,4 @@ class _Login_screenState extends State<Login_screen> {
     );
   }
 }
-class Textfiled extends StatelessWidget {
-  const Textfiled({Key? key}) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return TextField(
-
-    );
-  }
-}

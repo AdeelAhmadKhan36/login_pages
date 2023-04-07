@@ -19,31 +19,33 @@ class _HomescreenState extends State<Homescreen> {
         body: Stack(
           fit: StackFit.expand,
           children: [
-            ColorFiltered(
-                colorFilter: ColorFilter.mode(
-                    Colors.black.withOpacity(0.9), BlendMode.srcATop)),
-
-            // ColorFilter.mode(Colors.black.withOpacity(0.5), BlendMode.srcATop),
             const Image(
               image: AssetImage(
                 "Assets/flutter.jpg",
               ),
               fit: BoxFit.fitHeight,
             ),
+
+            // ColorFilter.mode(Colors.black.withOpacity(0.5), BlendMode.srcATop),
+            ColorFiltered(
+                colorFilter: ColorFilter.mode(
+                    Colors.black.withOpacity(0.9), BlendMode.srcATop)),
             SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    margin: EdgeInsets.only(top: 150, left: 30),
+                    margin: const EdgeInsets.only(top: 150, left: 30),
                     height: 60,
                     width: 80,
                     decoration: const BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.all(Radius.circular(10))),
-                    child: Image(image: AssetImage('Assets/imagflutter.png'),),
+                    child: const Image(
+                      image: AssetImage('Assets/imagflutter.png'),
+                    ),
                   ),
-                   const Padding(
+                  const Padding(
                     padding: EdgeInsets.only(top: 50, left: 30),
                     child: Text(
                       'Welcome',
@@ -65,9 +67,11 @@ class _HomescreenState extends State<Homescreen> {
                           letterSpacing: 1.5),
                     ),
                   ),
-                  SizedBox(height: 10,),
+                  const SizedBox(
+                    height: 10,
+                  ),
                   const Padding(
-                    padding: EdgeInsets.only( left: 30),
+                    padding: EdgeInsets.only(left: 30),
                     child: Text(
                       'Computer Science Society',
                       style: TextStyle(
@@ -80,9 +84,13 @@ class _HomescreenState extends State<Homescreen> {
                   Padding(
                     padding: const EdgeInsets.only(left: 30, right: 30),
                     child: InkWell(
-                      onTap: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=>const Login_screen()),);
-    },
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const Login_screen()),
+                        );
+                      },
                       child: Container(
                         margin: const EdgeInsets.only(top: 50),
                         height: 60,
@@ -90,25 +98,29 @@ class _HomescreenState extends State<Homescreen> {
                         decoration: BoxDecoration(
                             color: Colors.deepOrange,
                             borderRadius: BorderRadius.circular(20)),
-                        child: Center(
+                        child: const Center(
                             child: Text(
-                              "SignUp",
-                              style: TextStyle(
-                                  fontSize: 30,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white),
-                            )),
+                          "SignUp",
+                          style: TextStyle(
+                              fontSize: 30,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white),
+                        )),
                       ),
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(left: 30, right: 30),
                     child: InkWell(
-                      onTap: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=>Account_Screen()),);
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const Account_Screen()),
+                        );
                       },
                       child: Container(
-                        margin: EdgeInsets.only(top: 50),
+                        margin: const EdgeInsets.only(top: 50),
                         height: 60,
                         width: 400,
                         decoration: BoxDecoration(
@@ -128,14 +140,16 @@ class _HomescreenState extends State<Homescreen> {
                   const SizedBox(
                     height: 20,
                   ),
-                  Padding(
+                  const Padding(
                     padding: EdgeInsets.only(left: 250),
                     child: Text(
                       'Forget Passward',
-                      style: TextStyle(color: Colors.white,decoration: TextDecoration.underline),
+                      style: TextStyle(
+                          color: Colors.white,
+                          decoration: TextDecoration.underline,
+                          ),
                     ),
                   ),
-
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: const [
@@ -145,12 +159,14 @@ class _HomescreenState extends State<Homescreen> {
                             height: 50,
                             thickness: 3,
                             indent: 30,
-                            endIndent: 10
-                        ),
+                            endIndent: 10),
                       ),
                       Padding(
                         padding: EdgeInsets.all(8.0),
-                        child: Text('OR',style: TextStyle(color: Colors.white),),
+                        child: Text(
+                          'OR',
+                          style: TextStyle(color: Colors.white),
+                        ),
                       ),
                       Expanded(
                         child: Divider(
@@ -158,24 +174,22 @@ class _HomescreenState extends State<Homescreen> {
                             height: 50,
                             thickness: 3,
                             indent: 10,
-                            endIndent: 30
-                        ),
+                            endIndent: 30),
                       ),
-
                     ],
                   ),
                   Container(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
+                      children: const [
                         Image(image: AssetImage('Assets/google.png')),
+                        SizedBox(width: 20,),
                         Image(image: AssetImage('Assets/twitter.png')),
+                        SizedBox(width: 20,),
                         Image(image: AssetImage('Assets/facebook.png'))
                       ],
                     ),
                   )
-
-
                 ],
               ),
             )

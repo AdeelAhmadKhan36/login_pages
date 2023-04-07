@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
+
 
 class Account_Screen extends StatefulWidget {
   const Account_Screen({Key? key}) : super(key: key);
@@ -8,13 +10,36 @@ class Account_Screen extends StatefulWidget {
 }
 
 class _Account_ScreenState extends State<Account_Screen> {
+  TextEditingController passwordcontroller=TextEditingController();
+
+  void login(String password)async{
+    try{
+      Response response=await post(
+          Uri.parse('https://reqres.in/api/register'),
+          body:{
+
+            'password': password,
+
+          }
+
+      );
+      if(response.statusCode==200){
+        print('Login Sucessfully');
+      }else{
+        print('Failed to Log in');
+      }
+      
+    }catch(e){
+      print(e.toString());
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
         fit: StackFit.expand,
         children: [
-          Image(
+          const Image(
             image: AssetImage('Assets/flutter.jpg'),
             fit: BoxFit.cover,
           ),
@@ -89,7 +114,8 @@ class _Account_ScreenState extends State<Account_Screen> {
                           padding: EdgeInsets.only(left: 30, right: 30),
                           child: TextFormField(
                             obscureText: true,
-                            keyboardType: TextInputType.number,
+                            controller: passwordcontroller,
+
                             decoration: const InputDecoration(
                                 hintText: 'Enter Your Password',
                                 fillColor: Color(0xffF8F9FA),
@@ -102,21 +128,26 @@ class _Account_ScreenState extends State<Account_Screen> {
                         ),
                         Padding(
                           padding: const EdgeInsets.only(left: 30, right: 30),
-                          child: Container(
-                            margin: EdgeInsets.only(top: 50),
-                            height: 60,
-                            width: 400,
-                            child: Center(
-                                child: Text(
-                              "Login",
-                              style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white),
-                            )),
-                            decoration: BoxDecoration(
-                                color: Colors.deepOrange,
-                                borderRadius: BorderRadius.circular(20)),
+                          child: InkWell(
+                            onTap: (){
+                              login(passwordcontroller.text.toString());
+                            },
+                            child: Container(
+                              margin: EdgeInsets.only(top: 50),
+                              height: 60,
+                              width: 400,
+                              child: Center(
+                                  child: Text(
+                                "Login",
+                                style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white),
+                              )),
+                              decoration: BoxDecoration(
+                                  color: Colors.deepOrange,
+                                  borderRadius: BorderRadius.circular(20)),
+                            ),
                           ),
                         ),
                         SizedBox(
